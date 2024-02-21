@@ -1,0 +1,279 @@
+definitions:
+  models.Book:
+    properties:
+      author_name:
+        type: string
+      created_at:
+        type: string
+      deleted_at:
+        type: string
+      id:
+        type: string
+      name:
+        type: string
+      page_number:
+        type: integer
+      updated_at:
+        type: string
+    type: object
+  models.BookResponse:
+    properties:
+      books:
+        items:
+          $ref: '#/definitions/models.Book'
+        type: array
+      count:
+        type: integer
+    type: object
+  models.CreateBook:
+    properties:
+      author_name:
+        type: string
+      name:
+        type: string
+      page_number:
+        type: integer
+    type: object
+  models.Response:
+    properties:
+      data: {}
+      description:
+        type: string
+      status_code:
+        type: integer
+    type: object
+  models.Update:
+    properties:
+      author_name:
+        type: string
+      name:
+        type: string
+    type: object
+  models.UpdatePage:
+    properties:
+      page_number:
+        type: integer
+    type: object
+info:
+  contact: {}
+  description: This is a sample server celler server.
+  title: Swagger Example API
+  version: "1.0"
+paths:
+  /book:
+    post:
+      consumes:
+      - application/json
+      description: create a new book
+      parameters:
+      - description: basket
+        in: body
+        name: book
+        schema:
+          $ref: '#/definitions/models.CreateBook'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/models.Book'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.Response'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/models.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.Response'
+      summary: Creates a new book
+      tags:
+      - book
+  /book/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: delete book
+      parameters:
+      - description: bookID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/models.Book'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.Response'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/models.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.Response'
+      summary: Delete book
+      tags:
+      - book
+    get:
+      consumes:
+      - application/json
+      description: get book
+      parameters:
+      - description: bookID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/models.Book'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.Response'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/models.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.Response'
+      summary: Get book
+      tags:
+      - book
+    patch:
+      consumes:
+      - application/json
+      description: update book page
+      parameters:
+      - description: bookID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: page
+        in: body
+        name: page
+        schema:
+          $ref: '#/definitions/models.UpdatePage'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/models.Book'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.Response'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/models.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.Response'
+      summary: Update book page
+      tags:
+      - book
+    put:
+      consumes:
+      - application/json
+      description: update book
+      parameters:
+      - description: bookID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: basket
+        in: body
+        name: book
+        schema:
+          $ref: '#/definitions/models.Update'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/models.Book'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.Response'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/models.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.Response'
+      summary: Update book
+      tags:
+      - book
+  /books:
+    get:
+      consumes:
+      - application/json
+      description: get books list
+      parameters:
+      - description: page
+        in: query
+        name: page
+        type: string
+      - description: limit
+        in: query
+        name: limit
+        type: string
+      - description: book-name
+        in: query
+        name: book-name
+        type: string
+      - description: author-name
+        in: query
+        name: author-name
+        type: string
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/models.BookResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.Response'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/models.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.Response'
+      summary: Get books list
+      tags:
+      - book
+swagger: "2.0"
